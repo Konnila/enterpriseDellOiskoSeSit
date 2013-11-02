@@ -64,8 +64,27 @@
     <EntitySetMapping Name="UsersDoodle">
       <EntityTypeMapping TypeName="DoodelDBModel.UsersDoodle">
         <MappingFragment StoreEntitySet="UsersDoodle">
+          <ScalarProperty Name="UserDoodelChoicesId" ColumnName="UserDoodelChoicesId" />
           <ScalarProperty Name="DoodelId" ColumnName="DoodelId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Day">
+      <EntityTypeMapping TypeName="DoodelDBModel.Day">
+        <MappingFragment StoreEntitySet="Day">
+          <ScalarProperty Name="UserDoodelChoicesId" ColumnName="UserDoodelChoicesId" />
+          <ScalarProperty Name="Day1" ColumnName="Day" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDoodelChoices">
+      <EntityTypeMapping TypeName="DoodelDBModel.UserDoodelChoices">
+        <MappingFragment StoreEntitySet="UserDoodelChoices">
+          <ScalarProperty Name="UserDoodelId" ColumnName="UserDoodelId" />
+          <ScalarProperty Name="DayId" ColumnName="DayId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

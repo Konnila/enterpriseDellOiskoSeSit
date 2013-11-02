@@ -1,15 +1,22 @@
-﻿@model Duudelides.ViewModels.DoodleModel
+﻿@using System.Globalization
+@model Duudelides.ViewModels.DoodleModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<table border="5">
-    
-    
-    @foreach (var participant in Model.)
-    {
-        <li>@Html.ActionLink(doodel.Title, "MyDoodle", new {id = doodel.Id})</li>
-        <li>participant</li>
-    }
 
-</table>
+@using (Html.BeginForm("MyDoodle", "Doodel", FormMethod.Post))
+{
+    var amount = 0;
+    while (Model.Ending > Model.Beginning)
+     {
+         @Model.Beginning
+         @Html.RadioButton(Model.Beginning.ToString(CultureInfo.InvariantCulture),false)
+
+         Model.Beginning = Model.Beginning.AddDays(1);
+     }
+    <ul>
+        
+    </ul>
+    
+}

@@ -1,16 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DoodelDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="DoodelDBModelStoreContainer">
+    <EntitySet Name="Day" EntityType="DoodelDBModel.Store.Day" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Doodel" EntityType="DoodelDBModel.Store.Doodel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserDoodelChoices" EntityType="DoodelDBModel.Store.UserDoodelChoices" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserProfile" EntityType="DoodelDBModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UsersDoodle" EntityType="DoodelDBModel.Store.UsersDoodle" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Membership" EntityType="DoodelDBModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_OAuthMembership" EntityType="DoodelDBModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Roles" EntityType="DoodelDBModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_UsersInRoles" EntityType="DoodelDBModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Day_UserDoodelChoices" Association="DoodelDBModel.Store.FK_Day_UserDoodelChoices">
+      <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+      <End Role="Day" EntitySet="Day" />
+    </AssociationSet>
     <AssociationSet Name="fk_RoleId" Association="DoodelDBModel.Store.fk_RoleId">
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDoodelChoices_UsersDoodle" Association="DoodelDBModel.Store.FK_UserDoodelChoices_UsersDoodle">
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+      <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
     </AssociationSet>
     <AssociationSet Name="fk_UserId" Association="DoodelDBModel.Store.fk_UserId">
       <End Role="UserProfile" EntitySet="UserProfile" />
@@ -25,6 +35,14 @@
       <End Role="UsersDoodle" EntitySet="UsersDoodle" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Day" Type="datetime" Nullable="false" />
+    <Property Name="UserDoodelChoicesId" Type="int" />
+  </EntityType>
   <EntityType Name="Doodel">
     <Key>
       <PropertyRef Name="Id" />
@@ -33,6 +51,14 @@
     <Property Name="BeginTime" Type="datetime" Nullable="false" />
     <Property Name="EndTime" Type="datetime" Nullable="false" />
     <Property Name="Title" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDoodelChoices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DayId" Type="int" Nullable="false" />
+    <Property Name="UserDoodelId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>
@@ -48,6 +74,7 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="DoodelId" Type="int" Nullable="false" />
+    <Property Name="UserDoodelChoicesId" Type="int" />
   </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>
@@ -89,6 +116,18 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Day_UserDoodelChoices">
+    <End Role="UserDoodelChoices" Type="DoodelDBModel.Store.UserDoodelChoices" Multiplicity="0..1" />
+    <End Role="Day" Type="DoodelDBModel.Store.Day" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDoodelChoices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Day">
+        <PropertyRef Name="UserDoodelChoicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_RoleId">
     <End Role="webpages_Roles" Type="DoodelDBModel.Store.webpages_Roles" Multiplicity="1" />
     <End Role="webpages_UsersInRoles" Type="DoodelDBModel.Store.webpages_UsersInRoles" Multiplicity="*" />
@@ -98,6 +137,18 @@
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDoodelChoices_UsersDoodle">
+    <End Role="UsersDoodle" Type="DoodelDBModel.Store.UsersDoodle" Multiplicity="1" />
+    <End Role="UserDoodelChoices" Type="DoodelDBModel.Store.UserDoodelChoices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDoodle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDoodelChoices">
+        <PropertyRef Name="UserDoodelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

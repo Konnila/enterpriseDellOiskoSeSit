@@ -62,6 +62,7 @@ namespace Duudelides.Controllers
         }
 
         [HttpGet]
+        [Transaction]
         public ActionResult MyDoodle(int id)
         {
             //todo: authorize

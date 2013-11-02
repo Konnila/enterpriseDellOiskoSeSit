@@ -11,6 +11,7 @@ namespace Duudelides.ViewModels
         public List<ParticipantDaysModel>  Participants { get; set; }
         public DateTime Beginning { get; set; }
         public  DateTime Ending { get; set; }
-        public List<int> ParticipantIds { get; set; } 
+        public List<int> ParticipantIds { get; set; }
+
     }
 }

@@ -19,6 +19,20 @@
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="UsersDoodle" EntitySet="UsersDoodle" />
     </AssociationSet>
+    <EntitySet Name="Day" EntityType="DoodelDBModel.Day" />
+    <EntitySet Name="UserDoodelChoices" EntityType="DoodelDBModel.UserDoodelChoices" />
+    <AssociationSet Name="FK_UserDoodelChoices_Day" Association="DoodelDBModel.FK_UserDoodelChoices_Day">
+      <End Role="Day" EntitySet="Day" />
+      <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDoodelChoices_UsersDoodle" Association="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle">
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+      <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Day_UserDoodelChoices" Association="DoodelDBModel.FK_Day_UserDoodelChoices">
+      <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+      <End Role="Day" EntitySet="Day" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Doodel">
     <Key>
@@ -85,6 +99,8 @@
     <Property Type="Int32" Name="DoodelId" Nullable="false" />
     <NavigationProperty Name="Doodel" Relationship="DoodelDBModel.FK_UsersDoodle_Doodel" FromRole="UsersDoodle" ToRole="Doodel" />
     <NavigationProperty Name="UserProfile" Relationship="DoodelDBModel.FK_UsersDoodle_UserProfile" FromRole="UsersDoodle" ToRole="UserProfile" />
+    <NavigationProperty Name="UserDoodelChoices" Relationship="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" FromRole="UsersDoodle" ToRole="UserDoodelChoices" />
+    <Property Type="Int32" Name="UserDoodelChoicesId" />
   </EntityType>
   <Association Name="FK_UsersDoodle_Doodel">
     <End Type="DoodelDBModel.Doodel" Role="Doodel" Multiplicity="1" />
@@ -107,6 +123,63 @@
       </Principal>
       <Dependent Role="UsersDoodle">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="Day1" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UserDoodelChoices" Relationship="DoodelDBModel.FK_UserDoodelChoices_Day" FromRole="Day" ToRole="UserDoodelChoices" />
+    <Property Type="Int32" Name="UserDoodelChoicesId" />
+    <NavigationProperty Name="UserDoodelChoices1" Relationship="DoodelDBModel.FK_Day_UserDoodelChoices" FromRole="Day" ToRole="UserDoodelChoices" />
+  </EntityType>
+  <EntityType Name="UserDoodelChoices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="DayId" Nullable="false" />
+    <Property Type="Int32" Name="UserDoodelId" Nullable="false" />
+    <NavigationProperty Name="Day" Relationship="DoodelDBModel.FK_UserDoodelChoices_Day" FromRole="UserDoodelChoices" ToRole="Day" />
+    <NavigationProperty Name="UsersDoodle" Relationship="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" FromRole="UserDoodelChoices" ToRole="UsersDoodle" />
+    <NavigationProperty Name="Day1" Relationship="DoodelDBModel.FK_Day_UserDoodelChoices" FromRole="UserDoodelChoices" ToRole="Day" />
+  </EntityType>
+  <Association Name="FK_UserDoodelChoices_Day">
+    <End Type="DoodelDBModel.Day" Role="Day" Multiplicity="1" />
+    <End Type="DoodelDBModel.UserDoodelChoices" Role="UserDoodelChoices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Day">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDoodelChoices">
+        <PropertyRef Name="DayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDoodelChoices_UsersDoodle">
+    <End Type="DoodelDBModel.UsersDoodle" Role="UsersDoodle" Multiplicity="1" />
+    <End Type="DoodelDBModel.UserDoodelChoices" Role="UserDoodelChoices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDoodle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDoodelChoices">
+        <PropertyRef Name="UserDoodelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Day_UserDoodelChoices">
+    <End Type="DoodelDBModel.UserDoodelChoices" Role="UserDoodelChoices" Multiplicity="0..1" />
+    <End Type="DoodelDBModel.Day" Role="Day" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDoodelChoices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Day">
+        <PropertyRef Name="UserDoodelChoicesId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
