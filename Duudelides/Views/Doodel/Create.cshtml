@@ -1,0 +1,55 @@
+﻿@using Duudelides.Controllers
+@model Duudelides.DoodelCreateModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create your doodle here</h2>
+@using (Html.BeginForm("Create","Doodel", FormMethod.Post))
+{
+    
+@Html.LabelFor(m => m.Title, "Title")
+@Html.TextBoxFor(l => l.Title)
+
+@Html.Label("Date range")
+
+    
+<div id='jqxdatetimeinput'></div>
+
+@Html.HiddenFor(m => m.Ending, new {id = "beginningTime"})
+@Html.HiddenFor(m => m.Beginning, new {id = "endTime"})
+<br/>
+<button class="ui-button-text" type="submit">Oisko se sit?</button>
+}
+
+<p id ="selection">
+    
+</p>
+
+@section scripts {
+    <script type="text/javascript">
+            $(document).ready(function () {
+               
+                // create jqxcalendar.
+                $("#jqxdatetimeinput").jqxDateTimeInput({ width: 250, height: 25, selectionMode: 'range' });
+
+                $("#jqxdatetimeinput").on('change', function (event) {
+                    var selection = $("#jqxdatetimeinput").jqxDateTimeInput('getRange');
+                    if (selection.from != null) {
+                        $("#selection").html("From: " + selection.from.toLocaleDateString() + " <br/>To: " + selection.to.toLocaleDateString());
+                        $("#beginningTime").val(selection.from.toDateString());
+                        $("#endTime").val(selection.to.toDateString());
+                        
+                    }
+                });
+                 
+                var date1 = new Date();
+                date1.setFullYear(2013, 7, 7);
+
+                var date2 = new Date();
+                date2.setFullYear(2013, 7, 15);
+                $("#jqxdatetimeinput").jqxDateTimeInput('setRange', date1, date2);
+            });
+</script>
+}
