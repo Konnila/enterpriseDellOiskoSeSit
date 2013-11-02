@@ -65,9 +65,9 @@ namespace Duudelides.Controllers
         public ActionResult MyDoodle(int id)
         {
             //todo: authorize
+
             var doodel = doodelService.Get(x => x.Id == id).SingleOrDefault();
             var userDoodels = doodelService.GetUserDoodels().Where(x => x.DoodelId == doodel.Id);
-            var doodelChoices = doodelService.GetAllUserDoodleChoices().ToList().Where(x => x.UserDoodelId) ;
 
             var doodleModel = new DoodleModel
             {
@@ -80,14 +80,17 @@ namespace Duudelides.Controllers
 
             foreach (var ud in userDoodels)
             {
+                var days = doodelService.GetAllUserDoodleChoices()
+                    .Where(x => x.UserDoodelId == ud.Id)
+                    .Select(x => x.Day);
                 doodleModel.Participants.Add(new ParticipantDaysModel
                 {
                     User = userService.GetUser(ud.UserId).UserName,
-                    Days = new List<DateTime>()
+                    Days = days.Select(x => x.Day1).ToList()
                 });
             }
 
-            return View();
+            return View(doodleModel);
         }
 
 

@@ -21,7 +21,9 @@ namespace Duudelides
     
         public int Id { get; set; }
         public System.DateTime Day1 { get; set; }
+        public Nullable<int> UserDoodelChoicesId { get; set; }
     
         public virtual ICollection<UserDoodelChoices> UserDoodelChoices { get; set; }
+        public virtual UserDoodelChoices UserDoodelChoices1 { get; set; }
     }
 }

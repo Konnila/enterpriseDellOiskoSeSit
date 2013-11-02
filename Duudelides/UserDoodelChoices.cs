@@ -14,11 +14,17 @@ namespace Duudelides
     
     public partial class UserDoodelChoices
     {
+        public UserDoodelChoices()
+        {
+            this.Day1 = new HashSet<Day>();
+        }
+    
         public int Id { get; set; }
         public int DayId { get; set; }
         public int UserDoodelId { get; set; }
     
         public virtual Day Day { get; set; }
         public virtual UsersDoodle UsersDoodle { get; set; }
+        public virtual ICollection<Day> Day1 { get; set; }
     }
 }

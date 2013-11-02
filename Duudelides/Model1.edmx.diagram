@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="DoodelDBModel.UserDoodelChoices" Width="1.5" PointX="7.5" PointY="1" />
         <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_Day" />
         <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" />
+        <AssociationConnector Association="DoodelDBModel.FK_Day_UserDoodelChoices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

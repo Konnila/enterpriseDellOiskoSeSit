@@ -22,6 +22,7 @@ namespace Duudelides
         public int Id { get; set; }
         public int UserId { get; set; }
         public int DoodelId { get; set; }
+        public Nullable<int> UserDoodelChoicesId { get; set; }
     
         public virtual Doodel Doodel { get; set; }
         public virtual UserProfile UserProfile { get; set; }
