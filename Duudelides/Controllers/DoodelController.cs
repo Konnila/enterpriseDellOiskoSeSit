@@ -17,10 +17,12 @@ namespace Duudelides.Controllers
         //
         // GET: /Doodel/
         private DoodelService doodelService;
+        private UserProfileService userService;
 
         public DoodelController()
         {
             doodelService = new DoodelService();
+            userService = new UserProfileService();
         }
 
         [Transaction]
@@ -63,10 +65,32 @@ namespace Duudelides.Controllers
         public ActionResult MyDoodle(int id)
         {
             //todo: authorize
+            var doodel = doodelService.Get(x => x.Id == id).SingleOrDefault();
+            var userDoodels = doodelService.GetUserDoodels().Where(x => x.DoodelId == doodel.Id);
+            var doodelChoices = doodelService.GetAllUserDoodleChoices().ToList().Where(x => x.UserDoodelId) ;
 
+            var doodleModel = new DoodleModel
+            {
+                Beginning = doodel.BeginTime,
+                Ending = doodel.EndTime,
+                Title = doodel.Title,
+                Participants = new List<ParticipantDaysModel>()
+                
+            };
+
+            foreach (var ud in userDoodels)
+            {
+                doodleModel.Participants.Add(new ParticipantDaysModel
+                {
+                    User = userService.GetUser(ud.UserId).UserName,
+                    Days = new List<DateTime>()
+                });
+            }
 
             return View();
         }
+
+
 
     }
 

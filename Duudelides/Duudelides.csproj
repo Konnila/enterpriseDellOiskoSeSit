@@ -188,6 +188,8 @@
     <Compile Include="Day.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\UserProfileRepository.cs" />
+    <Compile Include="Services\UserProfileService.cs" />
     <Compile Include="UserDoodelChoices.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

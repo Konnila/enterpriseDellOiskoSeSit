@@ -48,5 +48,12 @@ namespace Duudelides.Repositories
 
             return db.UsersDoodle;
         }
+
+        public IEnumerable<UserDoodelChoices> GetAllUserDoodleChoices()
+        {
+            var db = GetDbContext();
+
+            return db.UserDoodelChoices;
+        }
     }
 }

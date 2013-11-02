@@ -43,5 +43,11 @@ namespace Duudelides.Services
         {
             return doodelRepository.GetUserDoodels();
         }
+
+        public IEnumerable<UserDoodelChoices> GetAllUserDoodleChoices()
+        {
+            return doodelRepository.GetAllUserDoodleChoices();
+        } 
+
     }
 }

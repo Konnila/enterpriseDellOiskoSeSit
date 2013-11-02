@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="81cf6120de7549bfb52033cf092fd65e" Name="Diagram1" ZoomLevel="88" >
-        <EntityTypeShape EntityType="DoodelDBModel.Doodel" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="DoodelDBModel.UserProfile" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_Membership" Width="1.5" PointX="5.75" PointY="3.75" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="DoodelDBModel.Doodel" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="DoodelDBModel.UserProfile" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_Membership" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="DoodelDBModel.webpages_UsersInRoles" />
         <EntityTypeShape EntityType="DoodelDBModel.UsersDoodle" Width="1.5" PointX="5.25" PointY="0.875" />
         <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_Doodel" />
         <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_UserProfile" />
-        <EntityTypeShape EntityType="DoodelDBModel.Day" Width="1.5" PointX="2.8771374835060621" PointY="28.9089480326087" />
-        <EntityTypeShape EntityType="DoodelDBModel.UserDoodelChoices" Width="1.5" PointX="6.1854055832072188" PointY="13.390242314613538" />
+        <EntityTypeShape EntityType="DoodelDBModel.Day" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="DoodelDBModel.UserDoodelChoices" Width="1.5" PointX="7.5" PointY="1" />
         <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_Day" />
         <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" />
       </Diagram>
