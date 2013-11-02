@@ -8,12 +8,12 @@
 @using (Html.BeginForm("MyDoodle", "Doodel", FormMethod.Post))
 {
     var amount = 0;
-    while (Model.Ending > Model.Beginning)
+    while (Model.Beginning > Model.Ending)
      {
-         @Model.Beginning
+         @Model.Ending
          @Html.RadioButton(Model.Beginning.ToString(CultureInfo.InvariantCulture),false)
 
-         Model.Beginning = Model.Beginning.AddDays(1);
+         Model.Ending = Model.Ending.AddDays(1);
      }
     <ul>
         
