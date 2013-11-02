@@ -12,18 +12,13 @@ namespace Duudelides
     using System;
     using System.Collections.Generic;
     
-    public partial class UserProfile
+    public partial class UsersDoodle
     {
-        public UserProfile()
-        {
-            this.webpages_Roles = new HashSet<webpages_Roles>();
-            this.UsersDoodle = new HashSet<UsersDoodle>();
-        }
-    
+        public int Id { get; set; }
         public int UserId { get; set; }
-        public string UserName { get; set; }
+        public int DoodelId { get; set; }
     
-        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
-        public virtual ICollection<UsersDoodle> UsersDoodle { get; set; }
+        public virtual Doodel Doodel { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

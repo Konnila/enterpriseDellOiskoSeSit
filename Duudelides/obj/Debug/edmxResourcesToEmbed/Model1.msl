@@ -61,5 +61,14 @@
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="UsersDoodle">
+      <EntityTypeMapping TypeName="DoodelDBModel.UsersDoodle">
+        <MappingFragment StoreEntitySet="UsersDoodle">
+          <ScalarProperty Name="DoodelId" ColumnName="DoodelId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -4,13 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="81cf6120de7549bfb52033cf092fd65e" Name="Diagram1" >
-        <EntityTypeShape EntityType="DoodelDBModel.Doodel" Width="1.5" PointX="6.625" PointY="0.875" />
-        <EntityTypeShape EntityType="DoodelDBModel.UserProfile" Width="1.5" PointX="8.1726403516589858" PointY="21.121999959052541" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_Membership" Width="1.5" PointX="5.56157387306987" PointY="6.6302509189724228" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_OAuthMembership" Width="1.5" PointX="6.9326045917964567" PointY="29.527440382878968" />
-        <EntityTypeShape EntityType="DoodelDBModel.webpages_Roles" Width="1.5" PointX="1.4327768522467355" PointY="21.665026794031739" />
+      <Diagram DiagramId="81cf6120de7549bfb52033cf092fd65e" Name="Diagram1" ZoomLevel="88" >
+        <EntityTypeShape EntityType="DoodelDBModel.Doodel" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="DoodelDBModel.UserProfile" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_Membership" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DoodelDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="1.125" />
         <AssociationConnector Association="DoodelDBModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="DoodelDBModel.UsersDoodle" Width="1.5" PointX="5.25" PointY="0.875" />
+        <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_Doodel" />
+        <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_UserProfile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

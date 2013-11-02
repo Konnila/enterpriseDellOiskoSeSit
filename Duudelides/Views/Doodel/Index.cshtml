@@ -1,0 +1,12 @@
+﻿@model Duudelides.ViewModels.DoodelListingModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My doodles</h2>
+
+@foreach (var doodel in Model.doodels)
+{
+  <li>@Html.ActionLink(doodel.Title, "MyDoodle", new {id = doodel.Id})</li>
+}

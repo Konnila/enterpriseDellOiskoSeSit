@@ -3,6 +3,7 @@
   <EntityContainer Name="DoodelDBModelStoreContainer">
     <EntitySet Name="Doodel" EntityType="DoodelDBModel.Store.Doodel" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserProfile" EntityType="DoodelDBModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersDoodle" EntityType="DoodelDBModel.Store.UsersDoodle" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Membership" EntityType="DoodelDBModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_OAuthMembership" EntityType="DoodelDBModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Roles" EntityType="DoodelDBModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
@@ -14,6 +15,14 @@
     <AssociationSet Name="fk_UserId" Association="DoodelDBModel.Store.fk_UserId">
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDoodle_Doodel" Association="DoodelDBModel.Store.FK_UsersDoodle_Doodel">
+      <End Role="Doodel" EntitySet="Doodel" />
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDoodle_UserProfile" Association="DoodelDBModel.Store.FK_UsersDoodle_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Doodel">
@@ -31,6 +40,14 @@
     </Key>
     <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+  </EntityType>
+  <EntityType Name="UsersDoodle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="DoodelId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>
@@ -92,6 +109,30 @@
         <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDoodle_Doodel">
+    <End Role="Doodel" Type="DoodelDBModel.Store.Doodel" Multiplicity="1" />
+    <End Role="UsersDoodle" Type="DoodelDBModel.Store.UsersDoodle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doodel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDoodle">
+        <PropertyRef Name="DoodelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDoodle_UserProfile">
+    <End Role="UserProfile" Type="DoodelDBModel.Store.UserProfile" Multiplicity="1" />
+    <End Role="UsersDoodle" Type="DoodelDBModel.Store.UsersDoodle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UsersDoodle">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Duudelides
+namespace Duudelides.ViewModels
 {
     public class DoodelCreateModel
     {

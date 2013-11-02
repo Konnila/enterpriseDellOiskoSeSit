@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Duudelides.Filters;
 using Duudelides.Framework;
+using Duudelides.Services;
+using Duudelides.ViewModels;
+using WebMatrix.WebData;
 
 namespace Duudelides.Controllers
 {
+    [InitializeSimpleMembership]
     public class DoodelController : Controller
     {
         //
@@ -18,9 +23,17 @@ namespace Duudelides.Controllers
             doodelService = new DoodelService();
         }
 
-        public ActionResult Index()
+        [Transaction]
+        public ActionResult Index(int id)
         {
-            return View();
+            //list view
+            var doodelListModel = new DoodelListingModel();
+            doodelListModel.doodels =
+                doodelService.GetUserDoodels()
+                    .Where(x => x.UserId == WebSecurity.GetUserId(User.Identity.Name))
+                    .Select(x => x.Doodel).ToList();
+
+            return View(doodelListModel);
         }
 
         [HttpGet]
@@ -38,18 +51,20 @@ namespace Duudelides.Controllers
             DateTime begin = Convert.ToDateTime(model.Beginning);
             DateTime end = Convert.ToDateTime(model.Ending);
 
-            doodelService.CreateDoodel(model);
+            var penis = User.Identity.Name;
+            var userId = WebSecurity.GetUserId(penis);
 
-            return RedirectToAction("Index");
+            doodelService.CreateDoodel(model, userId);
+           
+            return RedirectToAction("Index", "Doodel", new { id = WebSecurity.GetUserId(penis) });
         }
 
         [HttpGet]
-        public ActionResult MyDoodles()
+        public ActionResult MyDoodle(int id)
         {
-            return RedirectToAction("Index");
+            //todo: authorize
+            return View();
         }
-
-
 
     }
 

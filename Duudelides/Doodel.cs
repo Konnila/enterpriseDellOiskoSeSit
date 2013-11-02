@@ -14,9 +14,16 @@ namespace Duudelides
     
     public partial class Doodel
     {
+        public Doodel()
+        {
+            this.UsersDoodle = new HashSet<UsersDoodle>();
+        }
+    
         public int Id { get; set; }
         public System.DateTime BeginTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public string Title { get; set; }
+    
+        public virtual ICollection<UsersDoodle> UsersDoodle { get; set; }
     }
 }

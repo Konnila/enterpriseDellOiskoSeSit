@@ -10,6 +10,15 @@
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="UserProfile" EntitySet="UserProfile" />
     </AssociationSet>
+    <EntitySet Name="UsersDoodle" EntityType="DoodelDBModel.UsersDoodle" />
+    <AssociationSet Name="FK_UsersDoodle_Doodel" Association="DoodelDBModel.FK_UsersDoodle_Doodel">
+      <End Role="Doodel" EntitySet="Doodel" />
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDoodle_UserProfile" Association="DoodelDBModel.FK_UsersDoodle_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Doodel">
     <Key>
@@ -19,6 +28,7 @@
     <Property Type="DateTime" Name="BeginTime" Nullable="false" Precision="3" />
     <Property Type="DateTime" Name="EndTime" Nullable="false" Precision="3" />
     <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UsersDoodle" Relationship="DoodelDBModel.FK_UsersDoodle_Doodel" FromRole="Doodel" ToRole="UsersDoodle" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>
@@ -27,6 +37,7 @@
     <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="webpages_Roles" Relationship="DoodelDBModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+    <NavigationProperty Name="UsersDoodle" Relationship="DoodelDBModel.FK_UsersDoodle_UserProfile" FromRole="UserProfile" ToRole="UsersDoodle" />
   </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>
@@ -64,5 +75,39 @@
   <Association Name="webpages_UsersInRoles">
     <End Type="DoodelDBModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
     <End Type="DoodelDBModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+  </Association>
+  <EntityType Name="UsersDoodle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="Int32" Name="DoodelId" Nullable="false" />
+    <NavigationProperty Name="Doodel" Relationship="DoodelDBModel.FK_UsersDoodle_Doodel" FromRole="UsersDoodle" ToRole="Doodel" />
+    <NavigationProperty Name="UserProfile" Relationship="DoodelDBModel.FK_UsersDoodle_UserProfile" FromRole="UsersDoodle" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_UsersDoodle_Doodel">
+    <End Type="DoodelDBModel.Doodel" Role="Doodel" Multiplicity="1" />
+    <End Type="DoodelDBModel.UsersDoodle" Role="UsersDoodle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doodel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDoodle">
+        <PropertyRef Name="DoodelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDoodle_UserProfile">
+    <End Type="DoodelDBModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="DoodelDBModel.UsersDoodle" Role="UsersDoodle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UsersDoodle">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>
