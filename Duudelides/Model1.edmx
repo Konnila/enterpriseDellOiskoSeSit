@@ -6,7 +6,9 @@
     <edmx:StorageModels>
     <Schema Namespace="DoodelDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="DoodelDBModelStoreContainer">
+          <EntitySet Name="Day" EntityType="DoodelDBModel.Store.Day" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Doodel" EntityType="DoodelDBModel.Store.Doodel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserDoodelChoices" EntityType="DoodelDBModel.Store.UserDoodelChoices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="DoodelDBModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UsersDoodle" EntityType="DoodelDBModel.Store.UsersDoodle" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="DoodelDBModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
@@ -16,6 +18,14 @@
           <AssociationSet Name="fk_RoleId" Association="DoodelDBModel.Store.fk_RoleId">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDoodelChoices_Day" Association="DoodelDBModel.Store.FK_UserDoodelChoices_Day">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDoodelChoices_UsersDoodle" Association="DoodelDBModel.Store.FK_UserDoodelChoices_UsersDoodle">
+            <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+            <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
           </AssociationSet>
           <AssociationSet Name="fk_UserId" Association="DoodelDBModel.Store.fk_UserId">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -30,6 +40,13 @@
             <End Role="UsersDoodle" EntitySet="UsersDoodle" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Doodel">
           <Key>
             <PropertyRef Name="Id" />
@@ -38,6 +55,14 @@
           <Property Name="BeginTime" Type="datetime" Nullable="false" />
           <Property Name="EndTime" Type="datetime" Nullable="false" />
           <Property Name="Title" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDoodelChoices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DayId" Type="int" Nullable="false" />
+          <Property Name="UserDoodelId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -106,6 +131,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserDoodelChoices_Day">
+          <End Role="Day" Type="DoodelDBModel.Store.Day" Multiplicity="1" />
+          <End Role="UserDoodelChoices" Type="DoodelDBModel.Store.UserDoodelChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDoodelChoices">
+              <PropertyRef Name="DayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDoodelChoices_UsersDoodle">
+          <End Role="UsersDoodle" Type="DoodelDBModel.Store.UsersDoodle" Multiplicity="1" />
+          <End Role="UserDoodelChoices" Type="DoodelDBModel.Store.UserDoodelChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersDoodle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDoodelChoices">
+              <PropertyRef Name="UserDoodelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_UserId">
           <End Role="UserProfile" Type="DoodelDBModel.Store.UserProfile" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="DoodelDBModel.Store.webpages_UsersInRoles" Multiplicity="*" />
@@ -164,6 +213,16 @@
           <AssociationSet Name="FK_UsersDoodle_UserProfile" Association="DoodelDBModel.FK_UsersDoodle_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+          </AssociationSet>
+          <EntitySet Name="Day" EntityType="DoodelDBModel.Day" />
+          <EntitySet Name="UserDoodelChoices" EntityType="DoodelDBModel.UserDoodelChoices" />
+          <AssociationSet Name="FK_UserDoodelChoices_Day" Association="DoodelDBModel.FK_UserDoodelChoices_Day">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDoodelChoices_UsersDoodle" Association="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle">
+            <End Role="UsersDoodle" EntitySet="UsersDoodle" />
+            <End Role="UserDoodelChoices" EntitySet="UserDoodelChoices" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Doodel">
@@ -231,6 +290,7 @@
           <Property Type="Int32" Name="DoodelId" Nullable="false" />
           <NavigationProperty Name="Doodel" Relationship="DoodelDBModel.FK_UsersDoodle_Doodel" FromRole="UsersDoodle" ToRole="Doodel" />
           <NavigationProperty Name="UserProfile" Relationship="DoodelDBModel.FK_UsersDoodle_UserProfile" FromRole="UsersDoodle" ToRole="UserProfile" />
+          <NavigationProperty Name="UserDoodelChoices" Relationship="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" FromRole="UsersDoodle" ToRole="UserDoodelChoices" />
         </EntityType>
         <Association Name="FK_UsersDoodle_Doodel">
           <End Type="DoodelDBModel.Doodel" Role="Doodel" Multiplicity="1" />
@@ -253,6 +313,48 @@
             </Principal>
             <Dependent Role="UsersDoodle">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Day1" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserDoodelChoices" Relationship="DoodelDBModel.FK_UserDoodelChoices_Day" FromRole="Day" ToRole="UserDoodelChoices" />
+        </EntityType>
+        <EntityType Name="UserDoodelChoices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="DayId" Nullable="false" />
+          <Property Type="Int32" Name="UserDoodelId" Nullable="false" />
+          <NavigationProperty Name="Day" Relationship="DoodelDBModel.FK_UserDoodelChoices_Day" FromRole="UserDoodelChoices" ToRole="Day" />
+          <NavigationProperty Name="UsersDoodle" Relationship="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" FromRole="UserDoodelChoices" ToRole="UsersDoodle" />
+        </EntityType>
+        <Association Name="FK_UserDoodelChoices_Day">
+          <End Type="DoodelDBModel.Day" Role="Day" Multiplicity="1" />
+          <End Type="DoodelDBModel.UserDoodelChoices" Role="UserDoodelChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDoodelChoices">
+              <PropertyRef Name="DayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDoodelChoices_UsersDoodle">
+          <End Type="DoodelDBModel.UsersDoodle" Role="UsersDoodle" Multiplicity="1" />
+          <End Type="DoodelDBModel.UserDoodelChoices" Role="UserDoodelChoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersDoodle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDoodelChoices">
+              <PropertyRef Name="UserDoodelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,6 +429,23 @@
               <MappingFragment StoreEntitySet="UsersDoodle">
                 <ScalarProperty Name="DoodelId" ColumnName="DoodelId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Day">
+            <EntityTypeMapping TypeName="DoodelDBModel.Day">
+              <MappingFragment StoreEntitySet="Day">
+                <ScalarProperty Name="Day1" ColumnName="Day" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDoodelChoices">
+            <EntityTypeMapping TypeName="DoodelDBModel.UserDoodelChoices">
+              <MappingFragment StoreEntitySet="UserDoodelChoices">
+                <ScalarProperty Name="UserDoodelId" ColumnName="UserDoodelId" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,19 +12,13 @@ namespace Duudelides
     using System;
     using System.Collections.Generic;
     
-    public partial class UsersDoodle
+    public partial class UserDoodelChoices
     {
-        public UsersDoodle()
-        {
-            this.UserDoodelChoices = new HashSet<UserDoodelChoices>();
-        }
-    
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int DoodelId { get; set; }
+        public int DayId { get; set; }
+        public int UserDoodelId { get; set; }
     
-        public virtual Doodel Doodel { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<UserDoodelChoices> UserDoodelChoices { get; set; }
+        public virtual Day Day { get; set; }
+        public virtual UsersDoodle UsersDoodle { get; set; }
     }
 }

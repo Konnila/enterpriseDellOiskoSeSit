@@ -185,6 +185,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DoodelController.cs" />
+    <Compile Include="Day.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserDoodelChoices.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DoodelListingModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Doodel.cs">
@@ -222,6 +228,8 @@
     <Compile Include="UsersDoodle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DoodleModel.cs" />
+    <Compile Include="ViewModels\ParticipantDaysModel.cs" />
     <Compile Include="webpages_Membership.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

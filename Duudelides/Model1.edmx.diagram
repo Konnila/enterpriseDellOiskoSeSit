@@ -14,6 +14,10 @@
         <EntityTypeShape EntityType="DoodelDBModel.UsersDoodle" Width="1.5" PointX="5.25" PointY="0.875" />
         <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_Doodel" />
         <AssociationConnector Association="DoodelDBModel.FK_UsersDoodle_UserProfile" />
+        <EntityTypeShape EntityType="DoodelDBModel.Day" Width="1.5" PointX="2.8771374835060621" PointY="28.9089480326087" />
+        <EntityTypeShape EntityType="DoodelDBModel.UserDoodelChoices" Width="1.5" PointX="6.1854055832072188" PointY="13.390242314613538" />
+        <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_Day" />
+        <AssociationConnector Association="DoodelDBModel.FK_UserDoodelChoices_UsersDoodle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

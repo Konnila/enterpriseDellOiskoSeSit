@@ -24,7 +24,7 @@ namespace Duudelides.Controllers
         }
 
         [Transaction]
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
             //list view
             var doodelListModel = new DoodelListingModel();
@@ -63,6 +63,8 @@ namespace Duudelides.Controllers
         public ActionResult MyDoodle(int id)
         {
             //todo: authorize
+
+
             return View();
         }
 
